@@ -11,26 +11,26 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-
-    - name: Check Python environment
-      run: |
-        python --version
-        which python
-        ldd $(which python)
     
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
         
+    - name: Create and activate virtual environment
+      run: |
+        python -m venv env
+        source env/bin/activate
+        
     - name: Install dependencies
       run: |
-        curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-        python get-pip.py
         pip install --upgrade pip
         pip install jupyter
         
     - name: Connect to local server and run the Notebook
       run: |       
         # Execute the Jupyter Notebook and overwrite the existing file with the results
-        jupyter nbconvert --execute --to notebook --inplace notebooks/local/demo-pipeline.ipynb
+        jupyter nbconvert --execute --to notebook --inplace path/to/demo-pipeline.ipynb
+        
+    - name: Deactivate virtual environment
+      run: deactivate
