@@ -11,6 +11,12 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+
+    - name: Check Python environment
+      run: |
+        python --version
+        which python
+        ldd $(which python)
     
     - name: Set up Python
       uses: actions/setup-python@v2
