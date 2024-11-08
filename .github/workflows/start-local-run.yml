@@ -2,6 +2,8 @@ name: Start a run from Jupyter Notebook on local server via self-hosted Github A
 
 on:
   push:
+    branches:
+      - development
 
 jobs:
   start-local-run:
@@ -17,7 +19,9 @@ jobs:
         
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
+        curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+        python get-pip.py
+        pip install --upgrade pip
         pip install jupyter
         
     - name: Connect to local server and run the Notebook
